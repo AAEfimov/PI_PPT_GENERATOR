@@ -60,7 +60,6 @@ python-pptx==0.6.23
 python-resize-image==1.1.20
 PyYAML==6.0.1
 regex==2023.12.25
-requests==2.22.0
 rsa==4.9
 safetensors==0.4.2
 selenium==4.19.0
@@ -82,7 +81,6 @@ typing==3.7.4
 typing-extensions==4.11.0
 typing-inspect==0.9.0
 uritemplate==4.1.1
-urllib3==1.25.11
+urllib3==2.2.1
 wsproto==1.2.0
 XlsxWriter==3.2.0
-yandex-images-download==1.0.4
