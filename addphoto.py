@@ -1,3 +1,12 @@
+"""
+addphoto.py
+Functions to help you find and download images for use in PPT
+"""
+
+__author__ = "UrFU team"
+__copyright__ = "Copyright 2024, Planet Earth"
+
+
 import glob
 import os
 

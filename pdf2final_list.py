@@ -1,3 +1,11 @@
+"""
+pdf2final_list.py
+first step. Generate request to GPT and return tagged response
+"""
+
+__author__ = "UrFU team"
+__copyright__ = "Copyright 2024, Planet Earth"
+
 import time
 
 import gpt

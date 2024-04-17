@@ -1,3 +1,12 @@
+"""
+gpt.py
+wrapper to any GPT API
+"""
+
+__author__ = "UrFU team"
+__copyright__ = "Copyright 2024, Planet Earth"
+
+
 import os
 
 from gigachat import GigaChat

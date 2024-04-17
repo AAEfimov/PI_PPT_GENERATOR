@@ -1,3 +1,12 @@
+"""
+text2ppt.py
+generate ppt
+"""
+
+__author__ = "UrFU team"
+__copyright__ = "Copyright 2024, Planet Earth"
+
+import io
 import re
 
 from pptx import Presentation
@@ -7,8 +16,10 @@ import addphoto
 
 
 # Create a new PowerPoint presentation
-def presentate(defined_list):
+def presentate(defined_list, img=None):
     prs = Presentation()
+
+    print(defined_list)
 
     def add_slide(prs, layout, title, subtitle):
         slide = prs.slides.add_slide(layout)
@@ -64,19 +75,29 @@ def presentate(defined_list):
         ]
 
     for i in range(0, len(defined_list)):
-        add_slide(prs, title_slide_layout, defined_list[i]["Topic"],
-                  "\n".join(defined_list[i]["Summary"][0:len(defined_list[i]["Summary"]) // 2]),)
-        add_slide(prs, title_slide_layout, defined_list[i]["Topic"],
-                  "\n".join(defined_list[i]["Summary"][len(defined_list[i]["Summary"]) // 2:]),)
-        add_slide1(prs, title_slide_layout, "Code Snippet For " + defined_list[i]["Topic"], defined_list[i]["Code"],)
+        add_slide(
+            prs,
+            title_slide_layout,
+            defined_list[i]["Topic"],
+            "\n".join(
+                defined_list[i]["Summary"][0: len(defined_list[i]["Summary"]) // 2]
+            ),
+        )
+        add_slide(
+            prs,
+            title_slide_layout,
+            defined_list[i]["Topic"],
+            "\n".join(
+                defined_list[i]["Summary"][len(defined_list[i]["Summary"]) // 2:]
+            ),
+        )
+        # add_slide1(prs, title_slide_layout, "Code Snippet For " + defined_list[i]["Topic"], defined_list[i]["Code"],)
         try:
-            add_slide_img(
-                prs,
-                title_slide_layimg,
-                "images/" + addphoto.get_images(defined_list[i]["Topic"], 1)[0],
-            )
+            imgout = img if img else addphoto.get_images(defined_list[i]["Topic"], 1)[0]
+            add_slide_img(prs, title_slide_layimg, "images/" + imgout)
         except Exception as e:
             print("got Exception ", e)
+            imgout = img if img else addphoto.get_images(defined_list[i]["Topic"], 1)[0]
             add_slide_img(
                 prs,
                 title_slide_layimg,
@@ -85,4 +106,8 @@ def presentate(defined_list):
         addphoto.empty_images()
 
     # Save the presentation
-    prs.save("PPT.pptx")
+    binary_output = io.BytesIO()
+
+    prs.save(binary_output)
+
+    return binary_output
