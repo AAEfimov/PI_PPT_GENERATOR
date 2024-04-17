@@ -34,7 +34,6 @@ def load_image():
         if not os.path.exists(path):
             os.makedirs(path)
 
-        
         img.save(os.path.join(path, uploaded_file.name))
 
         # Return the name of the uploaded image file
@@ -68,9 +67,9 @@ def exec_p():
         x = pdf2final_list.process(text_list)
         binary_output = text2ppt.presentate(x, img)
 
-        sl.download_button(label = 'Download pptx',
-                   data = binary_output.getvalue(),
-                   file_name = filename)
+        sl.download_button(
+            label="Download pptx", data=binary_output.getvalue(), file_name=filename
+        )
 
     else:
         sl.text("Пожалуйста, добавьте ключевое слово презентации")

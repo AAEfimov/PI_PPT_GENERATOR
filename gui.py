@@ -1,3 +1,11 @@
+"""
+gui.py
+GUI
+"""
+
+__author__ = "UrFU team"
+__copyright__ = "Copyright 2024, Planet Earth"
+
 import os
 import shutil
 import tkinter as tk
