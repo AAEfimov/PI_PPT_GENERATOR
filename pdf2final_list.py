@@ -20,18 +20,10 @@ def process(topic_list):
         )
         dct["Topic"] = text.split("Summary:")[0][6:]
         dct["Summary"] = text.split("Summary:")[1].split("\n")
-        print(dct)
-        code = gpt.gpt_summarise(
-            f"I am giving you a topic {topic}. return a short sample code snippet for the given topic. do not write anything else."
-        )
-        code = code.replace("```python", "```")
-        print(code)
-        try:
-            code = (code.split("```"))[1].split("```")[0]
-        except Exception as e:
-            print(e)
-            pass
-        dct["Code"] = code
+        # print(">>>>>>>>>>>>>>>>>>>>>>")
+        # print(dct)
+        # print("<<<<<<<<<<<<<<<<<<<<<<")
+
         data_list.append(dct)
         if len(topic_list) <= 1:
             pass
