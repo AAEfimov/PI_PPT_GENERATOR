@@ -38,23 +38,6 @@ def presentate(defined_list, img=None):
             font1.italic = False
         return slide
 
-    def add_slide1(prs, layout, title, subtitle):
-        slide = prs.slides.add_slide(layout)
-        slide.shapes.title.text = title.strip()
-        slide.placeholders[1].text = subtitle
-        font = slide.shapes.title.text_frame.paragraphs[0].font
-        font.name = "Arial"
-        font.size = Pt(30)
-        font.bold = True
-        font.italic = False
-        for x in slide.placeholders[1].text_frame.paragraphs:
-            font1 = x.font
-            font1.name = "Arial"
-            font1.size = Pt(16)
-            font1.bold = False
-            font1.italic = False
-        return slide
-
     def add_slide_img(prs, layout, img_path):
         slide = prs.slides.add_slide(layout)
         img_path = "" + img_path
@@ -64,8 +47,8 @@ def presentate(defined_list, img=None):
         height = Inches(6)
         slide.shapes.add_picture(img_path, left, top, width, height)
 
-    title_slide_layout = prs.slide_layouts[1]
-    title_slide_layimg = prs.slide_layouts[6]
+    title_slide_layout = prs.slide_layouts[1]  # Only text
+    title_slide_layimg = prs.slide_layouts[6]  # Only image
 
     for d in defined_list:
         d["Summary"] = [
@@ -80,7 +63,7 @@ def presentate(defined_list, img=None):
             title_slide_layout,
             defined_list[i]["Topic"],
             "\n".join(
-                defined_list[i]["Summary"][0: len(defined_list[i]["Summary"]) // 2]
+                defined_list[i]["Summary"][0:len(defined_list[i]["Summary"]) // 2]
             ),
         )
         add_slide(
@@ -91,7 +74,7 @@ def presentate(defined_list, img=None):
                 defined_list[i]["Summary"][len(defined_list[i]["Summary"]) // 2:]
             ),
         )
-        # add_slide1(prs, title_slide_layout, "Code Snippet For " + defined_list[i]["Topic"], defined_list[i]["Code"],)
+
         try:
             imgout = img if img else addphoto.get_images(defined_list[i]["Topic"], 1)[0]
             add_slide_img(prs, title_slide_layimg, "images/" + imgout)
