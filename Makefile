@@ -4,6 +4,7 @@ build:
 	docker-compose -f docker-compose.yml build $(c)
 up:
 	docker-compose -f docker-compose.yml up -d $(c)
+	docker exec -d ollama ollama run llama3
 start:
 	docker-compose -f docker-compose.yml start $(c)
 down:
