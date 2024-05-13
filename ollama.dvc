@@ -1,0 +1,6 @@
+outs:
+- md5: e0e33eea106849b909e7c91988a81f66.dir
+  size: 4661225904
+  nfiles: 8
+  hash: md5
+  path: ollama
