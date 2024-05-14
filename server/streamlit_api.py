@@ -45,10 +45,24 @@ def load_image():
 
 sl.title("Генератор презентаций, по ключевым словам или основным мыслям из текста")
 
+opt_dict = {"GigaChat": 0, "LLAMA3": 1}
+
 text = sl.text_input("Ключевое слово для генерации презентации")
 """
 Test area on the web page to input PPT main them
 """
+option_text = sl.selectbox(
+    "Модель для генерации текста:", ([k for k in opt_dict.keys()])
+)
+
+ollama_host = ''
+ollama_port = 0
+
+if opt_dict[option_text] == 1:
+    sl.write("OLLAMA server address")
+    ollama_host = sl.text_input("host", "ollama")
+    ollama_port = int(sl.text_input("port", "11434"))
+
 filename = sl.text_input("Имя файла:", "PPT.pptx")
 """
 Test area on the web page to input PPT result filename
@@ -61,10 +75,11 @@ def exec_p():
     Button calback. Will check text.
     Call main functional to generate PPT
     """
+    os.environ['OLLAMA_ADDR'] = f'http://{ollama_host}:{ollama_port}'
     if text:
         text_list = text.split()
         print(text_list)
-        x = pdf2final_list.process(text_list)
+        x = pdf2final_list.process(text_list, opt_dict[option_text])
         binary_output = text2ppt.presentate(x, img)
 
         sl.download_button(
