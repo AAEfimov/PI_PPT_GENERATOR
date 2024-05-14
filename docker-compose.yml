@@ -5,7 +5,7 @@ services:
     container_name: ppt_generator_server
     build: 
       context: server/
-      dockerfile: ollama.Dockerfile
+      dockerfile: llm.Dockerfile
     environment:
       - GPT_TOKEN=${GPT_TOKEN}
       - GCS_DEVELOPER_KEY=${GCS_DEVELOPER_KEY}
