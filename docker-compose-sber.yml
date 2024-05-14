@@ -3,9 +3,10 @@ version: '3.8'
 services:
   server:
     container_name: ppt_generator_server
-    build: 
+    build:
       context: server/
-      dockerfile: ollama.Dockerfile
+      dockerfile: sber.Dockerfile
+
     environment:
       - GPT_TOKEN=${GPT_TOKEN}
       - GCS_DEVELOPER_KEY=${GCS_DEVELOPER_KEY}

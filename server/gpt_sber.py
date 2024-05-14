@@ -1,5 +1,5 @@
 """
-gpt.py
+gpt_sber.py
 wrapper to any GPT API
 """
 
