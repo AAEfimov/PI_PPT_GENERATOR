@@ -9,10 +9,9 @@ __copyright__ = "Copyright 2024, Planet Earth"
 import io
 import re
 
+import addphoto
 from pptx import Presentation
 from pptx.util import Inches, Pt
-
-import addphoto
 
 
 # Create a new PowerPoint presentation

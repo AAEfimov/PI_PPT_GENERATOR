@@ -11,11 +11,10 @@ import os
 from ollama import Client
 
 
-OLLAMA_HOST = os.getenv("OLLAMA_ADDR") 
-
-client = Client(host=OLLAMA_HOST)
-
-
 def gpt_summarise_ollama(text):
+    OLLAMA_HOST = os.getenv("OLLAMA_ADDR")
+
+    client = Client(host=OLLAMA_HOST)
+
     response = client.chat(model="llama3", messages=[{"role": "user", "content": text}])
     return response["message"]["content"]
