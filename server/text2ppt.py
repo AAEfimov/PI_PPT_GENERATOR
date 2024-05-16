@@ -9,16 +9,17 @@ __copyright__ = "Copyright 2024, Planet Earth"
 import io
 import re
 
-import addphoto
 from pptx import Presentation
 from pptx.util import Inches, Pt
+
+import addphoto
 
 
 # Create a new PowerPoint presentation
 def presentate(defined_list, img=None):
     prs = Presentation()
 
-    print(defined_list)
+    # print(defined_list)
 
     def add_slide(prs, layout, title, subtitle):
         slide = prs.slides.add_slide(layout)
