@@ -1,0 +1,102 @@
+diff --git a/server/gpt_ollama.py b/server/gpt_ollama.py
+index a20f548..3e2b599 100644
+--- a/server/gpt_ollama.py
++++ b/server/gpt_ollama.py
+@@ -11,11 +11,10 @@ import os
+ from ollama import Client
+ 
+ 
+-OLLAMA_HOST = os.getenv("OLLAMA_ADDR") 
+-
+-client = Client(host=OLLAMA_HOST)
++def gpt_summarise_ollama(text):
++    OLLAMA_HOST = os.getenv("OLLAMA_ADDR")
+ 
++    client = Client(host=OLLAMA_HOST)
+ 
+-def gpt_summarise_ollama(text):
+     response = client.chat(model="llama3", messages=[{"role": "user", "content": text}])
+     return response["message"]["content"]
+diff --git a/server/streamlit_api.py b/server/streamlit_api.py
+index e50f79d..9eaef06 100644
+--- a/server/streamlit_api.py
++++ b/server/streamlit_api.py
+@@ -9,11 +9,10 @@ __copyright__ = "Copyright 2024, Planet Earth"
+ import io
+ import os
+ 
+-import streamlit as sl
+-from PIL import Image
+-
+ import pdf2final_list
++import streamlit as sl
+ import text2ppt
++from PIL import Image
+ 
+ 
+ def load_image():
+@@ -46,6 +45,7 @@ def load_image():
+ sl.title("Генератор презентаций, по ключевым словам или основным мыслям из текста")
+ 
+ opt_dict = {"GigaChat": 0, "LLAMA3": 1}
++image_dict = {"Google": 0, "Local": 1, "StableDiffusion": 2}
+ 
+ text = sl.text_input("Ключевое слово для генерации презентации")
+ """
+@@ -55,7 +55,7 @@ option_text = sl.selectbox(
+     "Модель для генерации текста:", ([k for k in opt_dict.keys()])
+ )
+ 
+-ollama_host = ''
++ollama_host = ""
+ ollama_port = 0
+ 
+ if opt_dict[option_text] == 1:
+@@ -67,7 +67,17 @@ filename = sl.text_input("Имя файла:", "PPT.pptx")
+ """
+ Test area on the web page to input PPT result filename
+ """
+-img = load_image()
++experimental = sl.checkbox("Experimental")
++
++img = None
++
++if experimental:
++    option_image = sl.selectbox(
++        "Источник изображений", ([k for k in image_dict.keys()])
++    )
++
++    if image_dict[option_image] == 1:
++        img = load_image()
+ 
+ 
+ def exec_p():
+@@ -75,9 +85,9 @@ def exec_p():
+     Button calback. Will check text.
+     Call main functional to generate PPT
+     """
+-    os.environ['OLLAMA_ADDR'] = f'http://{ollama_host}:{ollama_port}'
++    os.environ["OLLAMA_ADDR"] = f"http://{ollama_host}:{ollama_port}"
+     if text:
+-        text_list = text.split()
++        text_list = text.split(",")
+         print(text_list)
+         x = pdf2final_list.process(text_list, opt_dict[option_text])
+         binary_output = text2ppt.presentate(x, img)
+diff --git a/server/text2ppt.py b/server/text2ppt.py
+index 0e4f71b..6da7b4c 100644
+--- a/server/text2ppt.py
++++ b/server/text2ppt.py
+@@ -9,11 +9,10 @@ __copyright__ = "Copyright 2024, Planet Earth"
+ import io
+ import re
+ 
++import addphoto
+ from pptx import Presentation
+ from pptx.util import Inches, Pt
+ 
+-import addphoto
+-
+ 
+ # Create a new PowerPoint presentation
+ def presentate(defined_list, img=None):
