@@ -9,10 +9,11 @@ __copyright__ = "Copyright 2024, Planet Earth"
 import io
 import os
 
-import pdf2final_list
 import streamlit as sl
-import text2ppt
 from PIL import Image
+
+import pdf2final_list
+import text2ppt
 
 
 def load_image():
