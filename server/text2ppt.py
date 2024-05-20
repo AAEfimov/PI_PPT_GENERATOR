@@ -63,7 +63,7 @@ def presentate(defined_list, img=None, title=None, subtitle=None, layout=None):
             title_slide_layout,
             defined_list[i]["Topic"],
             "\n".join(
-                defined_list[i]["Summary"][0:len(defined_list[i]["Summary"]) // 2]
+                defined_list[i]["Summary"][0:len(defined_list[i]["Summary"]) // 2] if subtitle is None else subtitle
             ),
         )
         add_slide(
@@ -71,7 +71,7 @@ def presentate(defined_list, img=None, title=None, subtitle=None, layout=None):
             title_slide_layout,
             defined_list[i]["Topic"],
             "\n".join(
-                defined_list[i]["Summary"][len(defined_list[i]["Summary"]) // 2:]
+                defined_list[i]["Summary"][len(defined_list[i]["Summary"]) // 2:] if subtitle is None else subtitle
             ),
         )
 
