@@ -69,7 +69,21 @@ https://developers.sber.ru/studio/
 Проект полностью представлен в 2-х docker контейнерах объеденённых внутренней сетью ppt-docker-net  
 ### Для установки docker и docker-compose обратитесь к официальной документации
 
-Сборка проекта из docker-compose.yml
+## Модель llama3 и файл весов находтся под Data Version Controll 
+### Выполните dvc pull, чтобы получить файлы
+
+```
+Collecting                                                                                                        |0.00 [00:00,    ?entry/s]
+Fetching
+Building workspace index                                                                                          |0.00 [00:00,    ?entry/s]
+Comparing indexes                                                                                                |16.0 [00:00, 1.05kentry/s]
+Applying changes                                                                                                  |8.00 [00:07,  1.11file/s]
+A       ollama/                                                                                                                             
+1 file added
+```
+### Использована версия 8B. Размером примерно 4.3Gb
+
+## Сборка проекта из docker-compose.yml
 
 ```
 make build NO_GPU=0
