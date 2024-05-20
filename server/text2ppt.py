@@ -16,7 +16,7 @@ import addphoto
 
 
 # Create a new PowerPoint presentation
-def presentate(defined_list, img=None):
+def presentate(defined_list, img=None, title=None, subtitle=None, layout=None):
     prs = Presentation()
 
     # print(defined_list)
@@ -47,8 +47,8 @@ def presentate(defined_list, img=None):
         height = Inches(6)
         slide.shapes.add_picture(img_path, left, top, width, height)
 
-    title_slide_layout = prs.slide_layouts[1]  # Only text
-    title_slide_layimg = prs.slide_layouts[6]  # Only image
+    title_slide_layout = prs.slide_layouts[layout] if layout else prs.slide_layouts[1]
+    title_slide_layimg = prs.slide_layouts[6]
 
     for d in defined_list:
         d["Summary"] = [
@@ -61,18 +61,16 @@ def presentate(defined_list, img=None):
         add_slide(
             prs,
             title_slide_layout,
-            defined_list[i]["Topic"],
+            defined_list[i]["Topic"] if title is None else title,
             "\n".join(
-                defined_list[i]["Summary"][0:len(defined_list[i]["Summary"]) // 2]
-            ),
+                defined_list[i]["Summary"][0:len(defined_list[i]["Summary"]) // 2]) if subtitle is None else subtitle,
         )
         add_slide(
             prs,
             title_slide_layout,
-            defined_list[i]["Topic"],
+            defined_list[i]["Topic"] if title is None else title,
             "\n".join(
-                defined_list[i]["Summary"][len(defined_list[i]["Summary"]) // 2:]
-            ),
+                defined_list[i]["Summary"][len(defined_list[i]["Summary"]) // 2:]) if subtitle is None else subtitle,
         )
 
         try:
@@ -88,9 +86,6 @@ def presentate(defined_list, img=None):
             )
         addphoto.empty_images()
 
-    # Save the presentation
     binary_output = io.BytesIO()
-
     prs.save(binary_output)
-
     return binary_output
