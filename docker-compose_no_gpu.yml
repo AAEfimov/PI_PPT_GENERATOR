@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  server:
+    container_name: ppt_generator_server
+    build: 
+      context: server/
+      dockerfile: llm.Dockerfile
+    environment:
+      - GPT_TOKEN=${GPT_TOKEN}
+      - GCS_DEVELOPER_KEY=${GCS_DEVELOPER_KEY}
+      - GCS_CX=${GCS_CX}
+    ports:
+      - 8501:8501
+    depends_on:
+      - ollama
+    networks:
+      - ppt-docker-net
+
+  ollama:
+    volumes:
+      - ./ollama:/root/.ollama
+    container_name: ollama
+    pull_policy: always
+    tty: true
+    restart: unless-stopped
+    image: ollama/ollama:latest
+    ports:
+      - 11434:11434
+    networks:
+      - ppt-docker-net
+
+networks:
+  ppt-docker-net:
+    external: false
