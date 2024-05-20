@@ -20,7 +20,7 @@ def load_image():
     """
     Create filed on the web page to upload image
     """
-    uploaded_file = sl.file_uploader(label="Выберите изобрадение")
+    uploaded_file = sl.file_uploader(label="Выберите изображение")
     # Check if an image file is uploaded
     if uploaded_file is not None:
         # Get the image data
@@ -91,7 +91,7 @@ def exec_p():
         text_list = text.split(",")
         print(text_list)
         x = pdf2final_list.process(text_list, opt_dict[option_text])
-        binary_output = text2ppt.presentate(x, img)
+        binary_output = text2ppt.presentate(x, img,  title=text, subtitle=text)
 
         sl.download_button(
             label="Download pptx", data=binary_output.getvalue(), file_name=filename
