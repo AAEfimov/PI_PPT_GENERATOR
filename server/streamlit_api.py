@@ -91,7 +91,7 @@ def exec_p():
         text_list = text.split(",")
         print(text_list)
         x = pdf2final_list.process(text_list, opt_dict[option_text])
-        binary_output = text2ppt.presentate(x, img,  title=text, subtitle=text)
+        binary_output = text2ppt.presentate(x, img,  title=st.text_input("Заголовок презентации"), subtitle=st.text_input("Подзаголовок презентации"))
 
         sl.download_button(
             label="Download pptx", data=binary_output.getvalue(), file_name=filename
