@@ -1,32 +1,54 @@
-# PPT Generator
+# :computer: PPT Generator - Software Engenering Project  
 
 [![Update Ubuntu 22.04](https://github.com/AAEfimov/PI_PPT_GENERATOR/actions/workflows/python-app.yml/badge.svg)](https://github.com/AAEfimov/PI_PPT_GENERATOR/actions/workflows/python-app.yml)
 [![docs](https://img.shields.io/badge/docs-latest-blue)](https://htmlpreview.github.io/?https://github.com/AAEfimov/PI_PPT_GENERATOR/blob/main/html/PI_PPT_GENERATOR/index.html)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/AAEfimov/PI_PPT_GENERATOR.svg)](http://isitmaintained.com/project/AAEfimov/PI_PPT_GENERATOR "Average time to resolve an issue")
 [![Percentage of issues still open](http://isitmaintained.com/badge/open/AAEfimov/PI_PPT_GENERATOR.svg)](http://isitmaintained.com/project/AAEfimov/PI_PPT_GENERATOR "Percentage of issues still open")
+[![docs](https://img.shields.io/badge/docs-latest-blue)](https://htmlpreview.github.io/?https://github.com/AAEfimov/PI_PPT_GENERATOR/blob/main/server/html/server/index.html)
+
+
+## О проекте
+
+Наш проект представляет streamlit web приложение для автоматической генерации презентаций.  
+В проекте была использована GPT от Sber (GigaChat), а также LLAAM3 развёрнутая локально в docker.  
+Наш сервис предоставляет возможность автоматически создать простую презентацию по клбючевым словам,  
+с автоматическим добавлением изображений связанных по смыслу с сгенерированным текстом.  
+
+
+![image](https://github.com/AAEfimov/PI_PPT_GENERATOR/assets/5468557/81ee4a81-9779-4bf6-a510-3e74ebd5e379)
 
 
 ### fork from (https://github.com/parthgupta1208/PresentSmart.git)
 
-## 1) Install
+## Релизы
 
-Clone this repo
+[Release list](https://github.com/AAEfimov/PI_PPT_GENERATOR/releases)
+
+## 1) Make tokens (Заполняем файл .env)
 
 ```
-python3 -m venv venv
-pip install -r requirements.txt
+export GPT_TOKEN=''
+export GCS_DEVELOPER_KEY=''
+export GCS_CX=''
 ```
 
-## 2) Вы должны получить доступ к GigaChat API 
+Для работы с GPT от Sber необходимо зарегистрироваться на 
 
 ```
 https://developers.sber.ru/studio/
 ```
 
-## 3) Вы должны получить GCS_DEVELOPER_KEY и GCS_CX
+и сгенерировать новый GPT Toketn
 
-# Мы ещё не перевели данный генератор на yandex или другой сервис по поиску картинок. поэтому пока используем google api
+![image](https://github.com/AAEfimov/PI_PPT_GENERATOR/assets/5468557/96ce14b7-c199-4a48-807b-d88920afe141)
+
+Полученный токен записать в файл 
+### .env -> GPT_TOKEN=''
+
+## Получаем токены GCS_DEVELOPER_KEY и GCS_CX от google для персонализированного поиска изображений  
+
+### TODO: Мы ещё не перевели данный генератор на yandex или другой сервис по поиску картинок. поэтому пока используем google api
 
 ```
 Чтобы иметь возможность использовать эту библиотеку, вам необходимо включить API пользовательского поиска Google, сгенерировать учетные данные ключа API и настроить проект:
@@ -41,6 +63,30 @@ https://developers.sber.ru/studio/
 
 После настройки учетной записи и проекта разработчиков Google вам должны были быть предоставлены ключ API разработчика и проект CX.
 ```
+
+## 2) Build
+
+Проект полностью представлен в 2-х docker контейнерах объеденённых внутренней сетью ppt-docker-net  
+### Для установки docker и docker-compose обратитесь к официальной документации
+
+Сборка проекта из docker-compose.yml
+
+```
+make build NO_GPU=0
+nake up
+```
+
+## ВАЖНО
+
+Если вы собираете образ на ПК без видеокарты, или с объёмом видеопамяти меньше 5Gb то команды нужно вызывать  
+с флагом NO_GPU=1
+
+## Команда:  
+
+:arrow_forward: Богачева Анна,  
+:arrow_forward: Ефимов Алексей,  
+:arrow_forward: Кулиев Эмир,  
+:arrow_forward: Миронова Александра.
 
 ## License
 
