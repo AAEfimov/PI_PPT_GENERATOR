@@ -52,8 +52,8 @@ text = sl.text_input("Ключевое слово для генерации пр
 
 customize = sl.checkbox("Customize")
 
-presentation_title = None
-presentation_subtitle = None
+presentation_title = ''
+presentation_subtitle = ''
 font = {"name": "Arial", "size": 12, "bold": False, "italic": False}
 
 if customize:
@@ -74,13 +74,13 @@ option_text = sl.selectbox(
     "Модель для генерации текста:", ([k for k in opt_dict.keys()])
 )
 
-ollama_host = ""
-ollama_port = 0
+ollama_host = "ollama"
+ollama_port = 11434
 
 if opt_dict[option_text] == 1:
     sl.write("OLLAMA server address")
-    ollama_host = sl.text_input("host", "ollama")
-    ollama_port = int(sl.text_input("port", "11434"))
+    ollama_host = sl.text_input("host", ollama_host)
+    ollama_port = int(sl.text_input("port", ollama_port))
 
 filename = sl.text_input("Имя файла:", "presentation")
 # Add a selectbox for the file format
@@ -128,4 +128,4 @@ def exec_p():
         sl.text("Пожалуйста, добавьте ключевое слово презентации")
 
 
-button = sl.button("generate PPT", on_click=exec_p)
+button = sl.button("generate", on_click=exec_p)
