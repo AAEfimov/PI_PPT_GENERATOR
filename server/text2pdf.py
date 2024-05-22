@@ -18,37 +18,73 @@ import addphoto
 
 default_font = {"name": "Arial", "size": 12, "bold": False, "italic": False}
 
-def presentate_pdf(defined_list, img=None):
-    """
-    Generate PDF presentation from the list of topics and summaries
-    """
-    binary_output = io.BytesIO()
-    c = canvas.Canvas(binary_output, pagesize=letter)
-    width, height = letter
+def presentate_pdf(
+        defined_list,
+        img=None,
+        title='',
+        subtitle='',
+        font_param=default_font,
+):
 
-    for d in defined_list:
-        topic = d["Topic"]
-        summary = "\n".join(d["Summary"])
-
-        c.setFont("Helvetica-Bold", 20)
-        c.drawString(72, height - 72, topic)
-
-        c.setFont("Helvetica", 12)
+    def add_slide(c, title, subtitle):
+        c.setFont(font_param["name"], font_param["size"])
+        if font_param["bold"]:
+            c.setFont(f"{font_param['name']}-Bold", font_param["size"])
+        if font_param["italic"]:
+            c.setFont(f"{font_param['name']}-Oblique", font_param["size"])
+        c.drawString(72, height - 72, title.strip())
         text_object = c.beginText(72, height - 108)
         text_object.setTextOrigin(72, height - 108)
-        text_object.textLines(summary)
+        text_object.textLines(subtitle)
         c.drawText(text_object)
+
+    def add_slide_img(c, img_path):
+        img_path = "" + img_path
+        try:
+            c.drawImage(img_path, 72, height - 300, width - 144, 150)
+        except Exception as e:
+            print(f"Image drawing failed: {e}")
+
+    for d in defined_list:
+        d["Summary"] = [
+            re.sub(r"\d+\.\s+", "", item).strip()
+            for item in d["Summary"]
+            if re.sub(r"\d+\.\s+", "", item).strip()
+        ]
+
+    for i in range(0, len(defined_list)):
+        add_slide(
+            c,
+            defined_list[i]["Topic"] if len(title) == 0 else title,
+            "\n".join(
+                defined_list[i]["Summary"][0:len(defined_list[i]["Summary"]) // 2]
+            ),
+        )
+        c.showPage()
+
+        add_slide(
+            c,
+            defined_list[i]["Topic"] if len(subtitle) == 0 else subtitle,
+            "\n".join(
+                defined_list[i]["Summary"][len(defined_list[i]["Summary"]) // 2:]
+            ),
+        )
+        c.showPage()
 
         if img:
             try:
                 imgout = f"images/{img}"
-                c.drawImage(imgout, 72, height - 300, width - 144, 150)
+                add_slide_img(c, imgout)
             except Exception as e:
                 print(f"Image drawing failed: {e}")
 
         c.showPage()
+    binary_output = io.BytesIO()
+    c = canvas.Canvas(binary_output, pagesize=letter)
+    width, height = letter
 
     c.save()
     binary_output.seek(0)
+
 
     return binary_output
