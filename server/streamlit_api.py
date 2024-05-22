@@ -50,13 +50,13 @@ image_dict = {"Google": 0, "Local": 1, "StableDiffusion": 2}
 
 text = sl.text_input("Ключевое слово для генерации презентации")
 
-castomize = sl.checkbox("Customize")
+customize = sl.checkbox("Customize")
 
 presentation_title = None
 presentation_subtitle = None
 font = {"name": "Arial", "size": 12, "bold": False, "italic": False}
 
-if castomize:
+if customize:
     # Add fields for title and subtitle
     presentation_title = sl.text_input("Заголовок презентации")
     presentation_subtitle = sl.text_input("Подзаголовок презентации")
