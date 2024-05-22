@@ -99,7 +99,7 @@ def exec_p():
                 label="Download pptx", data=binary_output.getvalue(), file_name=f"{filename}.pptx"
             )
         elif file_format == "pdf":
-            binary_output = text2pdf.presentate(x, img)  # Assuming similar function for PDF
+            binary_output = presentate_pdf(x, img)
             sl.download_button(
                 label="Download pdf", data=binary_output.getvalue(), file_name=f"{filename}.pdf"
             )
