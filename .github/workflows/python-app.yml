@@ -40,5 +40,8 @@ jobs:
         GCS_DEVELOPER_KEY: ${{ secrets.GCS_DEVELOPER_KEY }}
         GCS_CX: ${{ secrets.GCS_CX }}
       run: |
-        echo GCS_DEVELOPER_KEY
+        echo $GCS_DEVELOPER_KEY
+        export GPT_TOKEN=%GPT_TOKEN
+        export GCS_DEVELOPER_KEY=$GCS_DEVELOPER_KEY
+        export GCS_CX=%GCS_CX
         python -m unittest discover -s server -p "test_*.py"
