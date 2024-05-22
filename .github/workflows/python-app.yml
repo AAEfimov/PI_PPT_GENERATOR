@@ -36,9 +36,9 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       env: # Or as an environment variable
-        GPT_TOKEN: ${{ TOKENS.GPT }}
-        GCS_DEVELOPER_KEY: ${{ TOKENS.GCS_DEVELOPER_KEY }}
-        GCS_CX: ${{ TOKENS.GCS_CX }}
+        GPT_TOKEN: ${{ secrets.GPT }}
+        GCS_DEVELOPER_KEY: ${{ secrets.GCS_DEVELOPER_KEY }}
+        GCS_CX: ${{ secrets.GCS_CX }}
       run: |
         echo GCS_DEVELOPER_KEY
         python -m unittest discover -s server -p "test_*.py"
