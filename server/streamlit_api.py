@@ -64,7 +64,9 @@ if opt_dict[option_text] == 1:
     ollama_host = sl.text_input("host", "ollama")
     ollama_port = int(sl.text_input("port", "11434"))
 
-filename = sl.text_input("Имя файла:", "PPT.pptx")
+filename = sl.text_input("Имя файла:", "presentation")
+# Add a selectbox for the file format
+file_format = sl.selectbox("Формат файла для сохранения:", ["pptx", "pdf"])
 """
 Test area on the web page to input PPT result filename
 """
@@ -91,11 +93,16 @@ def exec_p():
         text_list = text.split(",")
         print(text_list)
         x = pdf2final_list.process(text_list, opt_dict[option_text])
-        binary_output = text2ppt.presentate(x, img)
-
-        sl.download_button(
-            label="Download pptx", data=binary_output.getvalue(), file_name=filename
-        )
+        if file_format == "pptx":
+            binary_output = text2ppt.presentate(x, img)
+            sl.download_button(
+                label="Download pptx", data=binary_output.getvalue(), file_name=f"{filename}.pptx"
+            )
+        elif file_format == "pdf":
+            binary_output = text2pdf.presentate(x, img)  # Assuming similar function for PDF
+            sl.download_button(
+                label="Download pdf", data=binary_output.getvalue(), file_name=f"{filename}.pdf"
+            )
 
     else:
         sl.text("Пожалуйста, добавьте ключевое слово презентации")

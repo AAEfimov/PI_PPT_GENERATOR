@@ -11,6 +11,8 @@ import re
 
 from pptx import Presentation
 from pptx.util import Inches, Pt
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
 
 import addphoto
 
@@ -94,3 +96,57 @@ def presentate(defined_list, img=None):
     prs.save(binary_output)
 
     return binary_output
+
+#save format presentation
+def presentate_pdf(defined_list, img=None):
+    binary_output = io.BytesIO()
+    c = canvas.Canvas(binary_output, pagesize=letter)
+    width, height = letter
+
+    for d in defined_list:
+        topic = d["Topic"]
+        summary = "\n".join(d["Summary"])
+
+        c.setFont("Helvetica-Bold", 20)
+        c.drawString(72, height - 72, topic)
+
+        c.setFont("Helvetica", 12)
+        text_object = c.beginText(72, height - 108)
+        text_object.setTextOrigin(72, height - 108)
+        text_object.textLines(summary)
+        c.drawText(text_object)
+
+        if img:
+            try:
+                imgout = f"images/{img}"
+                c.drawImage(imgout, 72, height - 300, width - 144, 150)
+            except Exception as e:
+                print(f"Image drawing failed: {e}")
+
+        c.showPage()
+
+    c.save()
+    binary_output.seek(0)
+
+    return binary_output
+
+# Update the exec_p function to handle both formats
+def exec_p():
+    os.environ["OLLAMA_ADDR"] = f"http://{ollama_host}:{ollama_port}"
+    if text:
+        text_list = text.split(",")
+        print(text_list)
+        x = pdf2final_list.process(text_list, opt_dict[option_text])
+
+        if file_format == "pptx":
+            binary_output = presentate_pptx(x, img)
+            sl.download_button(
+                label="Download pptx", data=binary_output.getvalue(), file_name=f"{filename}.pptx"
+            )
+        elif file_format == "pdf":
+            binary_output = presentate_pdf(x, img)
+            sl.download_button(
+                label="Download pdf", data=binary_output.getvalue(), file_name=f"{filename}.pdf"
+            )
+    else:
+        sl.text("Пожалуйста, добавьте ключевое слово презентации")
