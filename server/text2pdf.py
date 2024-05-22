@@ -18,6 +18,8 @@ import addphoto
 
 default_font = {"name": "Arial", "size": 12, "bold": False, "italic": False}
 
+
+# Create a new PDF presentation
 def presentate_pdf(
         defined_list,
         img=None,
@@ -85,6 +87,5 @@ def presentate_pdf(
 
     c.save()
     binary_output.seek(0)
-
 
     return binary_output
