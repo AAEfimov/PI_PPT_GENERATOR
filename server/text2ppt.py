@@ -129,24 +129,3 @@ def presentate_pdf(defined_list, img=None):
     binary_output.seek(0)
 
     return binary_output
-
-# Update the exec_p function to handle both formats
-def exec_p():
-    os.environ["OLLAMA_ADDR"] = f"http://{ollama_host}:{ollama_port}"
-    if text:
-        text_list = text.split(",")
-        print(text_list)
-        x = pdf2final_list.process(text_list, opt_dict[option_text])
-
-        if file_format == "pptx":
-            binary_output = presentate_pptx(x, img)
-            sl.download_button(
-                label="Download pptx", data=binary_output.getvalue(), file_name=f"{filename}.pptx"
-            )
-        elif file_format == "pdf":
-            binary_output = presentate_pdf(x, img)
-            sl.download_button(
-                label="Download pdf", data=binary_output.getvalue(), file_name=f"{filename}.pdf"
-            )
-    else:
-        sl.text("Пожалуйста, добавьте ключевое слово презентации")
