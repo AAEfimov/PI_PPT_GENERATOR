@@ -14,9 +14,18 @@ from pptx.util import Inches, Pt
 
 import addphoto
 
+default_font = {"name": "Arial", "size": 12, "bold": False, "italic": False}
+
 
 # Create a new PowerPoint presentation
-def presentate(defined_list, img=None, title=None, subtitle=None, layout=None):
+def presentate(
+    defined_list,
+    img=None,
+    title=None,
+    subtitle=None,
+    layout=None,
+    font_param=default_font,
+):
     prs = Presentation()
 
     # print(defined_list)
@@ -26,16 +35,16 @@ def presentate(defined_list, img=None, title=None, subtitle=None, layout=None):
         slide.shapes.title.text = title.strip()
         slide.placeholders[1].text = subtitle
         font = slide.shapes.title.text_frame.paragraphs[0].font
-        font.name = "Arial"
-        font.size = Pt(30)
-        font.bold = True
-        font.italic = False
+        font.name = font_param["name"]
+        font.size = Pt(font_param["size"])
+        font.bold = font_param["bold"]
+        font.italic = font_param["italic"]
         for x in slide.placeholders[1].text_frame.paragraphs:
             font1 = x.font
-            font1.name = "Arial"
-            font1.size = Pt(16)
-            font1.bold = False
-            font1.italic = False
+            font1.name = font_param["name"]
+            font1.size = Pt(font_param["size"])
+            font1.bold = font_param["bold"]
+            font1.italic = font_param["italic"]
         return slide
 
     def add_slide_img(prs, layout, img_path):
@@ -61,15 +70,16 @@ def presentate(defined_list, img=None, title=None, subtitle=None, layout=None):
         add_slide(
             prs,
             title_slide_layout,
-            defined_list[i]["Topic"],
+            defined_list[i]["Topic"] if len(title) == 0 else title,
             "\n".join(
                 defined_list[i]["Summary"][0:len(defined_list[i]["Summary"]) // 2]
             ),
         )
+
         add_slide(
             prs,
             title_slide_layout,
-            defined_list[i]["Topic"],
+            defined_list[i]["Topic"] if len(subtitle) == 0 else subtitle,
             "\n".join(
                 defined_list[i]["Summary"][len(defined_list[i]["Summary"]) // 2:]
             ),

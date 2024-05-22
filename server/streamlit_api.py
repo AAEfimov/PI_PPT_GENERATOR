@@ -49,6 +49,24 @@ opt_dict = {"GigaChat": 0, "LLAMA3": 1}
 image_dict = {"Google": 0, "Local": 1, "StableDiffusion": 2}
 
 text = sl.text_input("Ключевое слово для генерации презентации")
+
+castomize = sl.checkbox("Customize")
+
+presentation_title = None
+presentation_subtitle = None
+font = {"name": "Arial", "size": 12, "bold": False, "italic": False}
+
+if castomize:
+    # Add fields for title and subtitle
+    presentation_title = sl.text_input("Заголовок презентации")
+    presentation_subtitle = sl.text_input("Подзаголовок презентации")
+    f_italic = sl.checkbox("italic")
+    f_bold = sl.checkbox("bold")
+    f_name = sl.text_input("Font", value="Arial")
+    f_size = int(sl.text_input("size", 16))
+    font = {"name": f_name, "size": f_size, "bold": f_italic, "italic": f_bold}
+
+
 """
 Test area on the web page to input PPT main them
 """
@@ -80,9 +98,6 @@ if experimental:
     if image_dict[option_image] == 1:
         img = load_image()
 
-# Add fields for title and subtitle
-presentation_title = sl.text_input("Заголовок презентации")
-presentation_subtitle = sl.text_input("Подзаголовок презентации")
 
 def exec_p():
     """
@@ -94,7 +109,13 @@ def exec_p():
         text_list = text.split(",")
         print(text_list)
         x = pdf2final_list.process(text_list, opt_dict[option_text])
-        binary_output = text2ppt.presentate(x, img,  title=presentation_title, subtitle=presentation_subtitle)
+        binary_output = text2ppt.presentate(
+            x,
+            img,
+            title=presentation_title,
+            subtitle=presentation_subtitle,
+            font_param=font,
+        )
 
         sl.download_button(
             label="Download pptx", data=binary_output.getvalue(), file_name=filename
@@ -105,7 +126,3 @@ def exec_p():
 
 
 button = sl.button("generate PPT", on_click=exec_p)
-"""
-Streamlit button.
-after click, run calback and make_magic
-"""
