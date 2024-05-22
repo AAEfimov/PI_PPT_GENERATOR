@@ -81,8 +81,8 @@ if experimental:
         img = load_image()
 
 # Add fields for title and subtitle
-presentation_title = st.text_input("Заголовок презентации")
-presentation_subtitle = st.text_input("Подзаголовок презентации")
+presentation_title = sl.text_input("Заголовок презентации")
+presentation_subtitle = sl.text_input("Подзаголовок презентации")
 
 def exec_p():
     """
@@ -94,7 +94,7 @@ def exec_p():
         text_list = text.split(",")
         print(text_list)
         x = pdf2final_list.process(text_list, opt_dict[option_text])
-        binary_output = text2ppt.presentate(x, img,  title=presentation_title, subtitle=presentation_subtitle))
+        binary_output = text2ppt.presentate(x, img,  title=presentation_title, subtitle=presentation_subtitle)
 
         sl.download_button(
             label="Download pptx", data=binary_output.getvalue(), file_name=filename
