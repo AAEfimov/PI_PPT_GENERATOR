@@ -25,6 +25,9 @@ def presentate_pdf(
         subtitle='',
         font_param=default_font,
 ):
+    binary_output = io.BytesIO()
+    c = canvas.Canvas(binary_output, pagesize=letter)
+    width, height = letter
 
     def add_slide(c, title, subtitle):
         c.setFont(font_param["name"], font_param["size"])
@@ -79,9 +82,6 @@ def presentate_pdf(
                 print(f"Image drawing failed: {e}")
 
         c.showPage()
-    binary_output = io.BytesIO()
-    c = canvas.Canvas(binary_output, pagesize=letter)
-    width, height = letter
 
     c.save()
     binary_output.seek(0)
