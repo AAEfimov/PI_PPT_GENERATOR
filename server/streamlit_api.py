@@ -11,8 +11,6 @@ import os
 
 import streamlit as sl
 from PIL import Image
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
 
 import pdf2final_list
 import text2ppt
