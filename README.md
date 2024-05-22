@@ -2,8 +2,8 @@
 
 [![Update Ubuntu 22.04](https://github.com/AAEfimov/PI_PPT_GENERATOR/actions/workflows/python-app.yml/badge.svg)](https://github.com/AAEfimov/PI_PPT_GENERATOR/actions/workflows/python-app.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/AAEfimov/PI_PPT_GENERATOR.svg)](http://isitmaintained.com/project/AAEfimov/PI_PPT_GENERATOR "Average time to resolve an issue")
-[![Percentage of issues still open](http://isitmaintained.com/badge/open/AAEfimov/PI_PPT_GENERATOR.svg)](http://isitmaintained.com/project/AAEfimov/PI_PPT_GENERATOR "Percentage of issues still open")
+[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/AAEFIMOv/PI_PPT_GENERATOR.svg)](http://isitmaintained.com/project/AAEFIMOv/PI_PPT_GENERATOR "Average time to resolve an issue")
+[![Percentage of issues still open](http://isitmaintained.com/badge/open/AAEFIMOv/PI_PPT_GENERATOR.svg)](http://isitmaintained.com/project/AAEFIMOv/PI_PPT_GENERATOR "Percentage of issues still open")
 [![docs](https://img.shields.io/badge/docs-latest-blue)](https://htmlpreview.github.io/?https://github.com/AAEfimov/PI_PPT_GENERATOR/blob/main/server/html/server/index.html)
 
 
