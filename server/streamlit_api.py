@@ -14,6 +14,7 @@ from PIL import Image
 
 import pdf2final_list
 import text2ppt
+import text2pdf
 
 
 def load_image():
@@ -42,7 +43,6 @@ def load_image():
         # If no image is uploaded, return None
         return None
 
-
 sl.title("Генератор презентаций, по ключевым словам или основным мыслям из текста")
 
 opt_dict = {"GigaChat": 0, "LLAMA3": 1}
@@ -52,8 +52,8 @@ text = sl.text_input("Ключевое слово для генерации пр
 
 customize = sl.checkbox("Customize")
 
-presentation_title = None
-presentation_subtitle = None
+presentation_title = ''
+presentation_subtitle = ''
 font = {"name": "Arial", "size": 12, "bold": False, "italic": False}
 
 if customize:
@@ -74,15 +74,17 @@ option_text = sl.selectbox(
     "Модель для генерации текста:", ([k for k in opt_dict.keys()])
 )
 
-ollama_host = ""
-ollama_port = 0
+ollama_host = "ollama"
+ollama_port = 11434
 
 if opt_dict[option_text] == 1:
     sl.write("OLLAMA server address")
-    ollama_host = sl.text_input("host", "ollama")
-    ollama_port = int(sl.text_input("port", "11434"))
+    ollama_host = sl.text_input("host", ollama_host)
+    ollama_port = int(sl.text_input("port", ollama_port))
 
-filename = sl.text_input("Имя файла:", "PPT.pptx")
+filename = sl.text_input("Имя файла:", "presentation")
+# Add a selectbox for the file format
+file_format = sl.selectbox("Формат файла для сохранения:", ["pptx", "pdf"])
 """
 Test area on the web page to input PPT result filename
 """
@@ -99,30 +101,37 @@ if experimental:
         img = load_image()
 
 
+# Update the exec_p function to handle both formats
 def exec_p():
-    """
-    Button calback. Will check text.
-    Call main functional to generate PPT
-    """
     os.environ["OLLAMA_ADDR"] = f"http://{ollama_host}:{ollama_port}"
     if text:
         text_list = text.split(",")
         print(text_list)
         x = pdf2final_list.process(text_list, opt_dict[option_text])
-        binary_output = text2ppt.presentate(
-            x,
-            img,
-            title=presentation_title,
-            subtitle=presentation_subtitle,
-            font_param=font,
-        )
-
-        sl.download_button(
-            label="Download pptx", data=binary_output.getvalue(), file_name=filename
-        )
-
+        if file_format == "pptx":
+            binary_output = text2ppt.presentate(
+                x,
+                img,
+                title=presentation_title,
+                subtitle=presentation_subtitle,
+                font_param=font,
+            )
+            sl.download_button(
+                label="Download pptx", data=binary_output.getvalue(), file_name=f"{filename}.pptx"
+            )
+        elif file_format == "pdf":
+            binary_output = text2pdf.presentate_pdf(
+                x,
+                img,
+                title='',
+                subtitle='',
+                font_param={"name": "Helvetica", "size": 12, "bold": False, "italic": False},
+            )
+            sl.download_button(
+                label="Download pdf", data=binary_output.getvalue(), file_name=f"{filename}.pdf"
+            )
     else:
         sl.text("Пожалуйста, добавьте ключевое слово презентации")
 
 
-button = sl.button("generate PPT", on_click=exec_p)
+button = sl.button("generate", on_click=exec_p)
