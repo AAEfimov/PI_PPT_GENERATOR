@@ -11,17 +11,12 @@ import re
 
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
+from text2ppt import default_font
 
-default_font = {"name": "Arial", "size": 12, "bold": False, "italic": False}
 
 # Create a new PDF presentation
-def presentate_pdf(
-    defined_list,
-    img=None,
-    title="",
-    subtitle="",
-    font_param=default_font,
-):
+def presentate_pdf(defined_list, img=None, title="", subtitle="", font_param=default_font):
+
     binary_output = io.BytesIO()
     c = canvas.Canvas(binary_output, pagesize=letter)
     width, height = letter
@@ -57,7 +52,7 @@ def presentate_pdf(
             c,
             defined_list[i]["Topic"] if len(title) == 0 else title,
             "\n".join(
-                defined_list[i]["Summary"][0 : len(defined_list[i]["Summary"]) // 2]
+                defined_list[i]["Summary"][0:len(defined_list[i]["Summary"]) // 2]
             ),
         )
         c.showPage()
@@ -66,7 +61,7 @@ def presentate_pdf(
             c,
             defined_list[i]["Topic"] if len(subtitle) == 0 else subtitle,
             "\n".join(
-                defined_list[i]["Summary"][len(defined_list[i]["Summary"]) // 2 :]
+                defined_list[i]["Summary"][len(defined_list[i]["Summary"]) // 2:]
             ),
         )
         c.showPage()
