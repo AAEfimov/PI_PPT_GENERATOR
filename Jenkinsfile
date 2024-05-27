@@ -12,11 +12,9 @@ pipeline {
     stages {
         stage('prepare_repo') {
             steps {
-		dir("server") {
-                	sh "python3 -m venv venv"
-                	sh ". venv/bin/activate"
-                	sh "pip3 install -r requirements.txt"
-		}
+                sh "python3 -m venv venv"
+               	sh ". venv/bin/activate"
+               	sh "pip3 install -r server/requirements.txt"
 
                 sh "dvc remote modify --local myremote profile myprofile"
                 sh "dvc remote modify myremote --local gdrive_user_credentials_file gdrive.json"
