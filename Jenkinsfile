@@ -1,10 +1,12 @@
 pipeline {
     // use Docker as agent
+    // use Docker as agent
     agent {
-	dockerfile {
-	  customWorkspace 'server'
-	  filename llm.Dockerfile
-	}
+        docker {
+            // Docker file attached below. Image pushed to dockerhub
+            image 'efimovaleksey/mlops:stable'
+            args '-u root:sudo '
+        }
     }
 
     stages {
