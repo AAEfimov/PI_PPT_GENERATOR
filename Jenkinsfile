@@ -46,7 +46,7 @@ pipeline {
                    sh "cp \$env $WORKSPACE"
                 }
 
-		sh "source env"
+		sh ". env"
 		sh "python3 -m unittest discover -s server -p 'test_*.py'"
 	    }
 	}
