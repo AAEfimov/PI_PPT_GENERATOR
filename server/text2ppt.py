@@ -21,8 +21,8 @@ default_font = {"name": "Arial", "size": 12, "bold": False, "italic": False}
 def presentate(
     defined_list,
     img=None,
-    title='',
-    subtitle='',
+    title="",
+    subtitle="",
     layout=None,
     font_param=default_font,
 ):
@@ -72,7 +72,7 @@ def presentate(
             title_slide_layout,
             defined_list[i]["Topic"] if len(title) == 0 else title,
             "\n".join(
-                defined_list[i]["Summary"][0:len(defined_list[i]["Summary"]) // 2]
+                defined_list[i]["Summary"][0 : len(defined_list[i]["Summary"]) // 2]
             ),
         )
 
@@ -81,7 +81,7 @@ def presentate(
             title_slide_layout,
             defined_list[i]["Topic"] if len(subtitle) == 0 else subtitle,
             "\n".join(
-                defined_list[i]["Summary"][len(defined_list[i]["Summary"]) // 2:]
+                defined_list[i]["Summary"][len(defined_list[i]["Summary"]) // 2 :]
             ),
         )
 

@@ -6,10 +6,11 @@ test gpt module
 __author__ = "UrFU team"
 __copyright__ = "Copyright 2024, Planet Earth"
 
+import unittest
+
 import _io
 
 import text2ppt
-import unittest
 
 
 class TestAddphoto(unittest.TestCase):

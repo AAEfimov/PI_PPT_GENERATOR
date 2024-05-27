@@ -9,23 +9,18 @@ __copyright__ = "Copyright 2024, Planet Earth"
 import io
 import re
 
-from pptx import Presentation
-from pptx.util import Inches, Pt
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 
-import addphoto
-
 default_font = {"name": "Arial", "size": 12, "bold": False, "italic": False}
-
 
 # Create a new PDF presentation
 def presentate_pdf(
-        defined_list,
-        img=None,
-        title='',
-        subtitle='',
-        font_param=default_font,
+    defined_list,
+    img=None,
+    title="",
+    subtitle="",
+    font_param=default_font,
 ):
     binary_output = io.BytesIO()
     c = canvas.Canvas(binary_output, pagesize=letter)
@@ -62,7 +57,7 @@ def presentate_pdf(
             c,
             defined_list[i]["Topic"] if len(title) == 0 else title,
             "\n".join(
-                defined_list[i]["Summary"][0:len(defined_list[i]["Summary"]) // 2]
+                defined_list[i]["Summary"][0 : len(defined_list[i]["Summary"]) // 2]
             ),
         )
         c.showPage()
@@ -71,7 +66,7 @@ def presentate_pdf(
             c,
             defined_list[i]["Topic"] if len(subtitle) == 0 else subtitle,
             "\n".join(
-                defined_list[i]["Summary"][len(defined_list[i]["Summary"]) // 2:]
+                defined_list[i]["Summary"][len(defined_list[i]["Summary"]) // 2 :]
             ),
         )
         c.showPage()

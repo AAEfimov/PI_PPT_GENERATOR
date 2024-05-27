@@ -36,7 +36,13 @@ pipeline {
 		sh "dvc pull"
 	     }
 	}
- 
+
+	stage('flake8_test') {
+	     steps {
+		sh "flake8 server/"
+	     }
+	}
+
 	stage('testing') {
 	     steps {
 		sh "python -m unittest discover -s server -p 'test_*.py'"
