@@ -34,7 +34,7 @@ pipeline {
 
 	stage('dvc_data_get') {
 	     steps {
-		sh "dvc pull"
+		sh "#dvc pull"
 	     }
 	}
 
