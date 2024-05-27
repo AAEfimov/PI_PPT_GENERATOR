@@ -43,6 +43,7 @@ pipeline {
  
 	stage('data_testing') {
 	     steps {
+		sh "echo Datatest"
 	    }
 	}
     }
