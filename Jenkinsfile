@@ -45,7 +45,7 @@ pipeline {
 
 	stage('testing') {
 	     steps {
-		sh "python -m unittest discover -s server -p 'test_*.py'"
+		sh "python3 -m unittest discover -s server -p 'test_*.py'"
 	    }
 	}
     }
