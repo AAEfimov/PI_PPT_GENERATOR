@@ -22,10 +22,6 @@ pipeline {
                    sh "cp \$gdrive $WORKSPACE"
                 }
 
-                withCredentials([file(credentialsId: 'env', variable: 'env')]) {
-                   sh "cp \$env $WORKSPACE"
-                }
-
                 sh "ls -la"
             }
         }
@@ -45,6 +41,12 @@ pipeline {
 
 	stage('testing') {
 	     steps {
+
+                withCredentials([file(credentialsId: 'env', variable: 'env')]) {
+                   sh "cp \$env $WORKSPACE"
+                }
+
+		sh "source env"
 		sh "python3 -m unittest discover -s server -p 'test_*.py'"
 	    }
 	}
