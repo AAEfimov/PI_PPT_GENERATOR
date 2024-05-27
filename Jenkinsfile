@@ -30,12 +30,6 @@ pipeline {
                 sh "ls -la"
             }
         }
-       
-	stage('code_testing') {
-	     steps {
-		sh "echo Test"
-	     }
-	}
 
 	stage('dvc_data_get') {
 	     steps {
@@ -43,9 +37,9 @@ pipeline {
 	     }
 	}
  
-	stage('data_testing') {
+	stage('testing') {
 	     steps {
-		sh "echo Datatest"
+		python -m unittest discover -s server -p "test_*.py"
 	    }
 	}
     }
