@@ -13,8 +13,8 @@ import streamlit as sl
 from PIL import Image
 
 import pdf2final_list
-import text2ppt
 import text2pdf
+import text2ppt
 
 
 def load_image():
@@ -43,6 +43,7 @@ def load_image():
         # If no image is uploaded, return None
         return None
 
+
 sl.title("Генератор презентаций, по ключевым словам или основным мыслям из текста")
 
 opt_dict = {"GigaChat": 0, "LLAMA3": 1}
@@ -52,8 +53,8 @@ text = sl.text_input("Ключевое слово для генерации пр
 
 customize = sl.checkbox("Customize")
 
-presentation_title = ''
-presentation_subtitle = ''
+presentation_title = ""
+presentation_subtitle = ""
 font = {"name": "Arial", "size": 12, "bold": False, "italic": False}
 
 if customize:
@@ -117,18 +118,27 @@ def exec_p():
                 font_param=font,
             )
             sl.download_button(
-                label="Download pptx", data=binary_output.getvalue(), file_name=f"{filename}.pptx"
+                label="Download pptx",
+                data=binary_output.getvalue(),
+                file_name=f"{filename}.pptx",
             )
         elif file_format == "pdf":
             binary_output = text2pdf.presentate_pdf(
                 x,
                 img,
-                title='',
-                subtitle='',
-                font_param={"name": "Helvetica", "size": 12, "bold": False, "italic": False},
+                title="",
+                subtitle="",
+                font_param={
+                    "name": "Helvetica",
+                    "size": 12,
+                    "bold": False,
+                    "italic": False,
+                },
             )
             sl.download_button(
-                label="Download pdf", data=binary_output.getvalue(), file_name=f"{filename}.pdf"
+                label="Download pdf",
+                data=binary_output.getvalue(),
+                file_name=f"{filename}.pdf",
             )
     else:
         sl.text("Пожалуйста, добавьте ключевое слово презентации")

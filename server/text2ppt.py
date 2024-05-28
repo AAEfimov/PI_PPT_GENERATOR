@@ -28,8 +28,8 @@ def find_template(name):
 def presentate(
     defined_list,
     img=None,
-    title='',
-    subtitle='',
+    title="",
+    subtitle="",
     layout=None,
     font_param=default_font,
     templ_name = tempalte_default
