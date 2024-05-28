@@ -26,7 +26,7 @@ def presentate(
     layout=None,
     font_param=default_font,
 ):
-    prs = Presentation()
+    prs = Presentation('templates/default.pptx')
 
     # print(defined_list)
 
