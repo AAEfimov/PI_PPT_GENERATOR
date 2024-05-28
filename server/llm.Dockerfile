@@ -1,4 +1,4 @@
-FROM python:3.8.10
+FROM python:3.10
 
 # Expose port you want your app on
 EXPOSE 8501

@@ -11,11 +11,14 @@ import re
 
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
+
 from text2ppt import default_font
 
 
 # Create a new PDF presentation
-def presentate_pdf(defined_list, img=None, title="", subtitle="", font_param=default_font):
+def presentate_pdf(
+    defined_list, img=None, title="", subtitle="", font_param=default_font
+):
 
     binary_output = io.BytesIO()
     c = canvas.Canvas(binary_output, pagesize=letter)

@@ -7,8 +7,8 @@ __author__ = "UrFU team"
 __copyright__ = "Copyright 2024, Planet Earth"
 
 import io
-import re
 import os
+import re
 
 from pptx import Presentation
 from pptx.util import Inches, Pt
@@ -16,13 +16,14 @@ from pptx.util import Inches, Pt
 import addphoto
 
 default_font = {"name": "Arial", "size": 12, "bold": False, "italic": False}
-tempalte_default = 'default.pptx'
+tempalte_default = "default.pptx"
+
 
 def find_template(name):
-    for root, dirs, files in os.walk('./'):
+    for root, dirs, files in os.walk("./"):
         if name in files:
             return os.path.join(root, name)
-        
+
 
 # Create a new PowerPoint presentation
 def presentate(
@@ -32,7 +33,7 @@ def presentate(
     subtitle="",
     layout=None,
     font_param=default_font,
-    templ_name = tempalte_default
+    templ_name=tempalte_default,
 ):
 
     template_path = find_template(templ_name)
