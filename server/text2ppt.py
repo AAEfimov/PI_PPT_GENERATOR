@@ -21,8 +21,8 @@ default_font = {"name": "Arial", "size": 12, "bold": False, "italic": False}
 def presentate(
     defined_list,
     img=None,
-    title='',
-    subtitle='',
+    title="",
+    subtitle="",
     layout=None,
     font_param=default_font,
 ):

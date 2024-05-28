@@ -9,24 +9,14 @@ __copyright__ = "Copyright 2024, Planet Earth"
 import io
 import re
 
-from pptx import Presentation
-from pptx.util import Inches, Pt
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
-
-import addphoto
-
-default_font = {"name": "Arial", "size": 12, "bold": False, "italic": False}
+from text2ppt import default_font
 
 
 # Create a new PDF presentation
-def presentate_pdf(
-        defined_list,
-        img=None,
-        title='',
-        subtitle='',
-        font_param=default_font,
-):
+def presentate_pdf(defined_list, img=None, title="", subtitle="", font_param=default_font):
+
     binary_output = io.BytesIO()
     c = canvas.Canvas(binary_output, pagesize=letter)
     width, height = letter

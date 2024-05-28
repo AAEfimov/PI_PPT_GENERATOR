@@ -7,9 +7,9 @@ __author__ = "UrFU team"
 __copyright__ = "Copyright 2024, Planet Earth"
 
 import os
+import unittest
 
 import addphoto
-import unittest
 
 
 class TestAddphoto(unittest.TestCase):
